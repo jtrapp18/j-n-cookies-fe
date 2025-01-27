@@ -1,4 +1,4 @@
-const backendRoute = process.env.NODE_ENV === 'production' ? 'http://j-n-cookies-production.up.railway.app' : '/api'
+const backendRoute = process.env.NODE_ENV === 'production' ? 'https://j-n-cookies-production.up.railway.app' : '/api'
 
 //****************************************************************************************************
 // JSON-server CRUD functionality
