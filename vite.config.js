@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/',
+  base: process.env.NODE_ENV === 'production' ? '/j-n-cookies-fe/' : '/',
   plugins: [react({babel: {parserOpts: {plugins:[],}, plugins: []}})],
   server: {
     proxy: {
