@@ -6,7 +6,10 @@ const backendRoute = process.env.NODE_ENV === 'production' ? 'https://j-n-cookie
 function getReviewsByCookieId(cookieId) {
 
   // Make the API call to your Lambda (via API Gateway)
-  return fetch(`${backendRoute}/reviews/cookie/${cookieId}`)
+  return fetch(`${backendRoute}/reviews/cookie/${cookieId}`, {
+    method: 'GET',
+    credentials: 'include',  // Add credentials if dealing with sessions or cookies
+    })
     .then(res => {
       if (!res.ok) {
         console.error(`Error fetching user information! Status: ${res.status}`);
@@ -24,6 +27,7 @@ function userLogout() {
 
   fetch(`${backendRoute}/logout`, {
     method: 'DELETE',
+    credentials: 'include',
     headers: {
         'Content-Type': 'application/json'
     }
@@ -42,7 +46,10 @@ function userLogout() {
 function getJSON(dbKey) {
 
   // Make the API call to your Lambda (via API Gateway)
-  return fetch(`${backendRoute}/${dbKey}`)
+  return fetch(`${backendRoute}/${dbKey}`, {
+    method: 'GET',
+    credentials: 'include',  // Add credentials if dealing with sessions or cookies
+    })
     .then(res => {
       if (!res.ok) {
         console.error(`Error fetching ${dbKey} information! Status: ${res.status}`);
@@ -61,7 +68,10 @@ function getJSON(dbKey) {
 
   function getJSONById(dbKey, Id) {
     console.log(`Fetching data for ${dbKey}/${Id}`);  // Debugging log
-    return fetch(`${backendRoute}/${dbKey}/${Id}`)
+    return fetch(`${backendRoute}/${dbKey}/${Id}`, {
+      method: 'GET',
+      credentials: 'include',  // Add credentials if dealing with sessions or cookies
+      })
       .then((res) => {
         console.log('Response Status:', res.status);  // Log status
         console.log('Response Body:', res);  // Log full response
@@ -87,6 +97,7 @@ function getJSON(dbKey) {
   
     return fetch(`${backendRoute}/${dbKey}`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -132,6 +143,7 @@ function patchJSONToDb(dbKey, Id, jsonObj) {
 
     fetch(`${backendRoute}/${dbKey}/${Id}`, {
     method: 'PATCH',
+    credentials: 'include',
     headers: {
         'Content-Type': 'application/json'
     },
@@ -151,6 +163,7 @@ function deleteJSONFromDb(dbKey, Id) {
 
   fetch(`${backendRoute}/${dbKey}/${Id}`, {
   method: 'DELETE',
+  credentials: 'include',
   headers: {
       'Content-Type': 'application/json'
   }
