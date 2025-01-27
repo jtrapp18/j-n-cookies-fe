@@ -1,10 +1,12 @@
+const backendRoute = process.env.NODE_ENV === 'production' ? 'http://j-n-cookies-production.up.railway.app' : '/api'
+
 //****************************************************************************************************
 // JSON-server CRUD functionality
 
 function getReviewsByCookieId(cookieId) {
 
   // Make the API call to your Lambda (via API Gateway)
-  return fetch(`/api/reviews/cookie/${cookieId}`)
+  return fetch(`${backendRoute}/reviews/cookie/${cookieId}`)
     .then(res => {
       if (!res.ok) {
         console.error(`Error fetching user information! Status: ${res.status}`);
@@ -20,7 +22,7 @@ function getReviewsByCookieId(cookieId) {
 
 function userLogout() {
 
-  fetch(`/api/logout`, {
+  fetch(`${backendRoute}/logout`, {
     method: 'DELETE',
     headers: {
         'Content-Type': 'application/json'
@@ -40,7 +42,7 @@ function userLogout() {
 function getJSON(dbKey) {
 
   // Make the API call to your Lambda (via API Gateway)
-  return fetch(`/api/${dbKey}`)
+  return fetch(`${backendRoute}/${dbKey}`)
     .then(res => {
       if (!res.ok) {
         console.error(`Error fetching ${dbKey} information! Status: ${res.status}`);
@@ -59,7 +61,7 @@ function getJSON(dbKey) {
 
   function getJSONById(dbKey, Id) {
     console.log(`Fetching data for ${dbKey}/${Id}`);  // Debugging log
-    return fetch(`/api/${dbKey}/${Id}`)
+    return fetch(`${backendRoute}/${dbKey}/${Id}`)
       .then((res) => {
         console.log('Response Status:', res.status);  // Log status
         console.log('Response Body:', res);  // Log full response
@@ -83,7 +85,7 @@ function getJSON(dbKey) {
   function postJSONToDb(dbKey, jsonObj) {
     const snake_object = camelToSnake(jsonObj);
   
-    return fetch(`/api/${dbKey}`, {
+    return fetch(`${backendRoute}/${dbKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -128,7 +130,7 @@ function patchJSONToDb(dbKey, Id, jsonObj) {
 
     const snake_object = camelToSnake(jsonObj);
 
-    fetch(`/api/${dbKey}/${Id}`, {
+    fetch(`${backendRoute}/${dbKey}/${Id}`, {
     method: 'PATCH',
     headers: {
         'Content-Type': 'application/json'
@@ -147,7 +149,7 @@ function patchJSONToDb(dbKey, Id, jsonObj) {
 
 function deleteJSONFromDb(dbKey, Id) {
 
-  fetch(`/api/${dbKey}/${Id}`, {
+  fetch(`${backendRoute}/${dbKey}/${Id}`, {
   method: 'DELETE',
   headers: {
       'Content-Type': 'application/json'
